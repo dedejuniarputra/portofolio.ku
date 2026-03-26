@@ -11,7 +11,7 @@
             <form action="{{ route('admin.tools.store') }}" method="POST" enctype="multipart/form-data" class="space-y-3">
                 @csrf
                 <div>
-                    <label class="form-label !text-[10px]">Category *</label>
+                    <label class="form-label text-[10px]!">Category *</label>
                     <select name="tool_category_id" class="form-input text-xs h-9 px-3" required>
                         <option value="">Select Category...</option>
                         @foreach($categories as $cat)
@@ -31,9 +31,9 @@
             <h3 class="text-[10px]! font-black uppercase tracking-widest text-gray-500">Categories</h3>
             <form action="{{ route('admin.tools.categories.store') }}" method="POST" class="space-y-3">
                 @csrf
-                <div><label class="form-label !text-[10px]">Name</label><input type="text" name="name" class="form-input text-xs h-9 px-3" required></div>
-                <div><label class="form-label !text-[10px]">Slug</label><input type="text" name="slug" class="form-input text-xs h-9 px-3" required></div>
-                <div><label class="form-label !text-[10px]">Icon (emoji)</label><input type="text" name="icon" class="form-input text-xs h-9 px-3" placeholder="💻" maxlength="4"></div>
+                <div><label class="form-label text-[10px]!">Name</label><input type="text" name="name" class="form-input text-xs h-9 px-3" required></div>
+                <div><label class="form-label text-[10px]!">Slug</label><input type="text" name="slug" class="form-input text-xs h-9 px-3" required></div>
+                <div><label class="form-label text-[10px]!">Icon (emoji)</label><input type="text" name="icon" class="form-input text-xs h-9 px-3" placeholder="💻" maxlength="4"></div>
                 <button type="submit" class="btn-primary w-full py-2 text-xs">Add Category</button>
             </form>
         </div>
@@ -47,9 +47,9 @@
             </div>
             <div class="divide-y" style="divide-color:#141414">
                 @forelse($tools as $tool)
-                <div class="px-5 py-3 flex items-center justify-between gap-4 hover:bg-white/[0.02] transition-colors group">
+                <div class="px-5 py-3 flex items-center justify-between gap-4 hover:bg-white/2 transition-colors group">
                     <div class="flex items-center gap-3 flex-1 min-w-0">
-                        <div class="w-9 h-9 rounded-lg bg-[#0a0a0a] border border-white/5 flex items-center justify-center shrink-0 shadow-lg overflow-hidden">
+                        <div class="w-9 h-9 rounded-lg bg-surface border border-white/5 flex items-center justify-center shrink-0 shadow-lg overflow-hidden">
                             @if($tool->icon)
                                 <img src="{{ Storage::url($tool->icon) }}" class="w-full h-full object-cover">
                             @else
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 flex-shrink-0">
+                    <div class="flex items-center gap-2 shrink-0">
                         <a href="{{ route('admin.tools.edit', $tool) }}" 
                            class="w-14 text-center py-1.5 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400 hover:text-white transition-all">
                             Edit

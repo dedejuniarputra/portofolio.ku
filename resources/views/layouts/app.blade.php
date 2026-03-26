@@ -1,9 +1,26 @@
-<html lang="en" class="dark">
+<html lang="id" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', config('app.name')) | Portfolio</title>
-    <meta name="description" content="@yield('meta_description', 'Personal portfolio website')">
+    <meta name="description" content="@yield('meta_description', 'Personal portfolio website of Dede Juniar Putra. Showcase of projects, skills, and professional achievements.')">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('title', config('app.name')) | Portfolio">
+    <meta property="og:description" content="@yield('meta_description', 'Personal portfolio website of Dede Juniar Putra.')">
+    <meta property="og:image" content="{{ asset('profile.jpg') }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="@yield('title', config('app.name')) | Portfolio">
+    <meta property="twitter:description" content="@yield('meta_description', 'Personal portfolio website of Dede Juniar Putra.')">
+    <meta property="twitter:image" content="{{ asset('profile.jpg') }}">
+
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +40,7 @@
             <div class="relative mb-3">
                 <img
                     src="/profile.jpg"
-                    alt="{{ $profile->name ?? 'Profile' }}"
+                    alt="Dede Juniar Putra - Software Developer Indonesia"
                     class="w-20 h-20 rounded-full object-cover border-2"
                     style="border-color:#2a2a2a"
                 >

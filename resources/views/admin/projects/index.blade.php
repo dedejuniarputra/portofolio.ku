@@ -29,7 +29,7 @@
                 <div class="flex-1 sm:hidden flex flex-col justify-center gap-2">
                     <div class="flex items-center gap-2">
                         <span class="px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-primary-dark/10 text-primary-dark border border-primary-dark/20">{{ $p->type }}</span>
-                        <span class="status-badge status-{{ $p->status }} !text-[9px] px-2 py-0.5">{{ str_replace('-', ' ', $p->status) }}</span>
+                        <span class="status-badge status-{{ $p->status }} text-[9px]! px-2 py-0.5">{{ str_replace('-', ' ', $p->status) }}</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <a href="{{ route('admin.projects.edit', $p) }}" class="flex-1 text-center py-1.5 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400 hover:text-white transition-all">Edit</a>
@@ -67,7 +67,7 @@
                 @if($p->tech_stack)
                     <div class="flex flex-wrap gap-1.5 mt-auto">
                         @foreach(array_slice($p->tech_stack, 0, 5) as $tech)
-                            <span class="text-[9px] px-2 py-0.5 rounded-md font-bold text-gray-400 border border-white/[0.05]" style="background:rgba(255,255,255,0.02)">{{ $tech }}</span>
+                            <span class="text-[9px] px-2 py-0.5 rounded-md font-bold text-gray-400 border border-white/5" style="background:rgba(255,255,255,0.02)">{{ $tech }}</span>
                         @endforeach
                         @if(count($p->tech_stack) > 5)
                             <span class="text-[9px] px-1 py-0.5 text-gray-600 font-bold">+{{ count($p->tech_stack) - 5 }}</span>

@@ -68,9 +68,9 @@
     </div>
     <div class="divide-y" style="divide-color:#141414">
         @forelse($skills as $skill)
-        <div class="px-5 py-3 flex items-center justify-between gap-4 hover:bg-white/[0.02] transition-colors group">
+        <div class="px-5 py-3 flex items-center justify-between gap-4 hover:bg-white/2 transition-colors group">
             <div class="flex items-center gap-3 flex-1 min-w-0">
-                <div class="w-8 h-8 rounded-lg bg-[#0a0a0a] border border-white/5 flex items-center justify-center shrink-0 shadow-lg">
+                <div class="w-8 h-8 rounded-lg bg-surface border border-white/5 flex items-center justify-center shrink-0 shadow-lg">
                     @if($skill->icon && str_starts_with($skill->icon, 'devicon'))
                         <i class="{{ $skill->icon }} text-base" style="color: {{ $skill->color ?? '#a3a3a3' }}"></i>
                     @else
@@ -82,7 +82,7 @@
                     <p class="text-[10px] font-bold text-gray-600 truncate">{{ $skill->category->name ?? '-' }}</p>
                 </div>
             </div>
-            <div class="flex items-center gap-2 flex-shrink-0">
+            <div class="flex items-center gap-2 shrink-0">
                 <button onclick="openEditSkill({{ $skill->id }}, '{{ $skill->skill_category_id }}', '{{ addslashes($skill->name) }}', '{{ $skill->icon }}', '{{ $skill->color }}', {{ $skill->is_featured ? 'true' : 'false' }})"
                     class="w-14 text-center py-1.5 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400 hover:text-white hover:border-white/20 transition-all">
                     Edit

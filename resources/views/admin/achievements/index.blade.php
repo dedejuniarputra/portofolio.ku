@@ -16,7 +16,7 @@
 <div class="card overflow-hidden">
     <div class="divide-y" style="divide-color:#141414">
         @forelse($achievements as $a)
-        <div class="p-4 sm:p-5 flex flex-col sm:flex-row items-stretch sm:items-start gap-4 sm:gap-6 hover:bg-white/[0.02] transition-colors group">
+        <div class="p-4 sm:p-5 flex flex-col sm:flex-row items-stretch sm:items-start gap-4 sm:gap-6 hover:bg-white/2 transition-colors group">
             <!-- Icon/Image & Mobile Actions -->
             <div class="flex items-start gap-4 sm:block">
                 @if($a->image)

@@ -25,7 +25,7 @@
                     <img src="/logo.png" alt="Logo" class="w-full h-full object-cover">
                 </div>
                 <div>
-                    <p class="text-[11px] font-black uppercase tracking-widest text-[#0de282] group-hover:text-white transition-colors">Admin Panel</p>
+                    <p class="text-[11px] font-black uppercase tracking-widest text-primary-dark group-hover:text-white transition-colors">Admin Panel</p>
                     <p class="text-[10px] font-bold text-gray-500 truncate max-w-[120px]">{{ auth()->user()->name }}</p>
                 </div>
             </a>
@@ -117,7 +117,7 @@
 
         <!-- Top bar (Desktop) -->
         <div class="hidden md:flex border-b px-10 py-5 items-center justify-between sticky top-0 z-30" style="background:#0a0a0a;border-color:#1f1f1f">
-            <h1 class="text-xs font-black uppercase tracking-[0.3em] text-[#0de282]">@yield('page-title', 'Dashboard')</h1>
+            <h1 class="text-xs font-black uppercase tracking-[0.3em] text-primary-dark">@yield('page-title', 'Dashboard')</h1>
             <div class="flex items-center gap-4">
                 <div class="w-9 h-9 rounded-xl overflow-hidden border border-white/5 shadow-2xl">
                     <img src="/logo.png" alt="Logo" class="w-full h-full object-cover">

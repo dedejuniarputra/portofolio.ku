@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Projects')
+@section('meta_description', 'Explore a showcase of personal and open-source projects by Dede Juniar Putra, ranging from web applications to specialized local tools.')
 @section('content')
 <div x-data="{ 
     type: '{{ request('type', 'All') }}',
