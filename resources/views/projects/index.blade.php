@@ -4,136 +4,133 @@
 @section('content')
 <div x-data="{ 
     type: '{{ request('type', 'All') }}',
-    category: '{{ request('category', 'All') }}',
-    filter(t, c) {
-        window.location.href = `{{ route('projects') }}?type=${t}&category=${c}`;
+    showAll: false,
+    limit: 4,
+    filter(t) {
+        window.location.href = `{{ route('projects') }}?type=${t}`;
     }
 }" class="animate-fade-in-up stagger-1">
     
     <div class="section-title mb-2">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.75z"/><path d="m9 12 2 2 4-4"/></svg>
-        Projects
+        FEATURED PROJECTS
     </div>
     <p class="text-[15px] font-medium mb-10 text-gray-400">Showcase of my personal and open-source projects.</p>
 
-    <!-- Filters -->
-    <div class="space-y-6 md:space-y-4 mb-10 pb-6 border-b border-dashed border-gray-800">
-        <!-- Type Filter -->
-        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest min-w-[60px]">Type</span>
-            <div class="flex flex-wrap gap-2">
-                @foreach(['All', 'Web', 'Mobile'] as $t)
-                    <button @click="filter('{{ $t }}', category)" 
-                        :class="type === '{{ $t }}' ? 'bg-[#facc15] text-black border-[#facc15]' : 'bg-[#1a1a1a] text-gray-400 border-[#262626] hover:border-gray-600'"
-                        class="px-4 py-1 rounded-full text-[12px] font-bold border transition-all duration-300">
-                        {{ $t }}
-                    </button>
-                @endforeach
-            </div>
-        </div>
-
-        <!-- Category Filter -->
-        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest min-w-[60px]">Category</span>
-            <div class="flex flex-wrap gap-2">
-                @foreach(['All', 'Personal Projects', 'Internship', 'Freelance', 'Competition'] as $c)
-                    <button @click="filter(type, '{{ $c }}')" 
-                        :class="category === '{{ $c }}' ? 'bg-[#facc15] text-black border-[#facc15]' : 'bg-[#1a1a1a] text-gray-400 border-[#262626] hover:border-gray-600'"
-                        class="px-4 py-1 rounded-full text-[12px] font-bold border transition-all duration-300">
-                        {{ $c }}
-                    </button>
-                @endforeach
-            </div>
-        </div>
+    <!-- Project Filters (Simple Tags) -->
+    <div class="flex flex-wrap items-center gap-3 mb-12">
+        @foreach(['All', 'Mobile', 'Web', 'UI/UX'] as $t)
+            <button @click="filter('{{ $t }}')" 
+                :class="type === '{{ $t }}' ? 'bg-primary-dark/10 text-primary-dark border-primary-dark/40 shadow-[0_0_15px_rgba(13,226,130,0.1)]' : 'bg-[#121212] text-gray-500 border-white/5 hover:border-white/10 shadow-lg'"
+                class="px-5 py-2 rounded-full text-[12px] font-bold border transition-all duration-300 active:scale-95 group">
+                {{ $t }}
+            </button>
+        @endforeach
     </div>
 
     @if(count($projects) > 0)
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
             @foreach($projects as $project)
-            <div class="group h-full bg-[#0d0d0d] rounded-2xl border border-[#262626] hover:border-primary/50 transition-all duration-500 overflow-hidden flex flex-col">
-                <!-- Project Image & Hover Overlay -->
+            <div x-show="showAll || {{ $loop->index }} < limit" 
+                 x-transition:enter="transition ease-out duration-700"
+                 x-transition:enter-start="opacity-0 transform translate-y-4"
+                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                 style="{{ $loop->index >= 4 ? 'display: none;' : '' }}"
+                 class="group relative bg-[#0d0d0d] border border-white/5 hover:border-primary-dark/40 transition-all duration-700 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_rgba(0,0,0,0.8)] rounded-xl">
+                <!-- Project Image -->
                 <div class="relative aspect-video overflow-hidden">
                     @if($project->image)
-                        <img src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" 
+                             class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                             loading="lazy" decoding="async" width="600" height="337">
                     @else
-                        <div class="w-full h-full bg-gray-900 flex items-center justify-center">
-                            <svg class="w-12 h-12 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <div class="w-full h-full bg-surface-2 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-white/5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         </div>
                     @endif
 
-                    @if($project->is_featured)
-                        <div class="absolute top-3 right-3 bg-[#facc15] text-black px-2 py-1 rounded shadow-lg text-[10px] font-black uppercase tracking-tighter flex items-center gap-1 z-10 transition-transform duration-500 group-hover:translate-x-1">
-                            <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M11 1.07l1.246 3.514A1 1 0 0013.195 5.3l3.649.034a1 1 0 01.558 1.718l-2.91 2.213a1 1 0 00-.35 1.077l1.08 3.507a1 1 0 01-1.523 1.109l-3.033-2.148a1 1 0 00-1.134 0l-3.033 2.148a1 1 0 01-1.523-1.109l1.08-3.507a1 1 0 00-.35-1.077L2.6 7.052a1 1 0 01.558-1.718l3.649-.034a1 1 0 00.949-.716L9 1.07a1 1 0 011.898 0z"/></svg>
-                            Featured
-                        </div>
+                    <!-- Redirect Icon (Green Glow Style) -->
+                    @if($project->demo_url)
+                        <a href="{{ $project->demo_url }}" target="_blank" 
+                           class="absolute top-3 right-3 z-40 w-8 h-8 flex items-center justify-center bg-primary-dark/5 backdrop-blur-xl rounded-full border border-primary-dark/20 text-primary-dark hover:bg-primary-dark hover:text-black hover:scale-110 transition-all duration-500 shadow-[0_0_10px_rgba(13,226,130,0.2)] hover:shadow-[0_0_20px_rgba(13,226,130,0.5)] group"
+                           title="Visit Project">
+                            <svg class="w-3.5 h-3.5 transition-transform duration-500 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
                     @endif
-
-                    <!-- Hover Overlay -->
-                    <a href="{{ route('projects.show', $project) }}" class="absolute inset-0 bg-black/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-[2px]">
-                        <span class="flex items-center gap-2 text-white font-bold text-[15px] translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                            View Project
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                        </span>
-                    </a>
                 </div>
 
                 <!-- Project Body -->
-                <div class="p-5 md:p-6 flex flex-col flex-grow">
-                    <a href="{{ route('projects.show', $project) }}" class="inline-block group/title">
-                        <h3 class="text-base md:text-lg font-bold text-gray-100 group-hover/title:text-primary transition-colors mb-2 line-clamp-2 min-h-12">{{ $project->title }}</h3>
-                    </a>
-                    <p class="text-[14px] text-gray-500 leading-relaxed line-clamp-2 mb-6">{{ $project->description }}</p>
+                <div class="p-4 md:p-5">
+                    <h3 class="text-[17px] font-black text-white leading-tight mb-0.5 uppercase tracking-widest group-hover:text-primary-dark transition-colors duration-700">{{ $project->title }}</h3>
+                    <p class="text-[12.5px] text-gray-400 leading-relaxed line-clamp-2">{{ $project->description }}</p>
                     
-                    <!-- Tech Stack & Reactions -->
-                    <div class="mt-auto flex items-center justify-between gap-4 pt-4 border-t border-white/5">
-                        <div class="flex items-center gap-2 flex-wrap min-w-0">
+                    <!-- Tech Stack Icons & Star Reaction Row -->
+                    <div class="flex items-center justify-between mt-2.5 pt-2.5 border-t border-white/5" x-data="{ 
+                            count: {{ $project->reactions['star'] ?? 0 }},
+                            loading: false,
+                            react() {
+                                if(this.loading) return;
+                                this.loading = true;
+                                fetch('{{ route('projects.react', $project) }}', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                    },
+                                    body: JSON.stringify({ type: 'star' })
+                                })
+                                .then(res => res.json())
+                                .then(data => {
+                                    if(data.success) this.count = data.count;
+                                    this.loading = false;
+                                })
+                                .catch(() => this.loading = false);
+                            }
+                        }">
+                        <div class="flex items-center gap-4 flex-wrap">
                             @if($project->tech_stack)
                                 @foreach($project->tech_stack as $tech)
-                                    <div class="w-5 h-5 flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-500" title="{{ $tech }}">
-                                        @include('components.tech-icon', ['name' => $tech])
-                                    </div>
+                                    <i class="{{ $tech }} colored text-[22px] transition-all duration-500 hover:scale-125" title="{{ explode('-', $tech)[1] ?? $tech }}"></i>
                                 @endforeach
                             @endif
                         </div>
-                        
-                        <!-- Simple Like Counter -->
-                        <div x-data="{ 
-                                count: {{ $project->reactions['heart'] ?? 0 }},
-                                loading: false,
-                                react() {
-                                    if(this.loading) return;
-                                    this.loading = true;
-                                    fetch('{{ route('projects.react', $project) }}', {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                        },
-                                        body: JSON.stringify({ type: 'heart' })
-                                    })
-                                    .then(res => res.json())
-                                    .then(data => {
-                                        if(data.success) this.count = data.count;
-                                        this.loading = false;
-                                    })
-                                    .catch(() => this.loading = false);
-                                }
-                            }" 
-                            @click="react()"
-                            class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1a1a1a] border border-[#262626] text-[11px] sm:text-[12px] font-bold text-gray-400 group/like cursor-pointer hover:border-rose-500/30 hover:bg-rose-500/5 transition-all shrink-0 active:scale-95"
-                            :class="loading ? 'opacity-50 pointer-events-none' : ''">
-                            <span class="text-rose-500 group-hover/like:scale-125 transition-transform duration-300">❤️</span>
-                            <span x-text="count"></span>
-                        </div>
+
+                        <!-- Star Appreciation Button -->
+                        <button @click="react()" 
+                           class="relative shrink-0 hover:scale-110 transition-all duration-500 group/link flex items-center gap-2.5 px-4 py-2 bg-white/3 rounded-full border border-white/5 hover:border-[#facc15]/30"
+                           :class="loading ? 'opacity-50 pointer-events-none' : ''">
+                            <div class="absolute inset-0 bg-[#facc15]/20 blur-xl opacity-0 group-hover/link:opacity-100 transition-opacity duration-700"></div>
+                            <span class="relative text-[11px] font-black text-gray-400 group-hover/link:text-white transition-colors" x-text="count"></span>
+                            <svg class="relative w-4.5 h-4.5 text-[#facc15] drop-shadow-[0_0_15px_rgba(250,204,21,0.8)] transition-transform group-active:scale-125" 
+                                 fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
+
+        @if(count($projects) > 4)
+            <div class="mt-12 flex justify-center">
+                <button @click="showAll = !showAll" 
+                        class="relative px-6 py-2 rounded-full border border-white/5 bg-[#0d0d0d] text-gray-400 text-xs font-bold hover:bg-[#121212] hover:text-white hover:border-primary-dark/50 transition-all duration-300 flex items-center gap-2 hover:shadow-[0_0_20px_rgba(13,226,130,0.2)] active:scale-95 group">
+                    <span x-text="showAll ? 'Show Less' : 'Load More'" class="relative z-10"></span>
+                    <svg class="relative z-10 w-3.5 h-3.5 transition-transform duration-500" 
+                         :class="showAll ? 'rotate-180' : ''" 
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                    <!-- Inner Glow (Green) -->
+                    <div class="absolute inset-0 rounded-full bg-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                </button>
+            </div>
+        @endif
     @else
-        <div class="text-center py-20 bg-[#0d0d0d] rounded-2xl border border-dashed border-[#262626]">
+        <div class="text-center py-20 bg-[#0d0d0d] rounded-xl border border-dashed border-border text-gray-400">
             <svg class="w-16 h-16 mx-auto mb-4 text-gray-800 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-            <p class="text-gray-500 font-medium">No projects found for this filter.</p>
+            <p class="font-medium">No projects found for this filter.</p>
         </div>
     @endif
 </div>

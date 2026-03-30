@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | @yield('title', 'Dashboard')</title>
+    <title>Admin | @yield('title', 'Profile')</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body style="background:#0a0a0a;font-family:Inter,sans-serif">
@@ -47,6 +48,12 @@
                 <div class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition-all duration-300 {{ request()->routeIs('admin.skills.*') ? 'bg-[#161616] text-primary-dark shadow-[0_4px_20px_rgba(13,226,130,0.15)]' : 'text-gray-400 hover:text-primary-dark hover:bg-[#161616]' }}">
                     <svg class="w-4 h-4 shrink-0 icon-container" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/><path d="m14.5 4-5 16"/></svg>
                     <span class="text-xs font-bold whitespace-nowrap">Skills</span>
+                </div>
+            </a>
+            <a href="{{ route('admin.experiences.index') }}" class="sidebar-link {{ request()->routeIs('admin.experiences.*') || request()->routeIs('admin.educations.*') ? 'active nav-active-glow' : 'hover:nav-active-glow' }} relative group block">
+                <div class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition-all duration-300 {{ request()->routeIs('admin.experiences.*') || request()->routeIs('admin.educations.*') ? 'bg-[#161616] text-primary-dark shadow-[0_4px_20px_rgba(13,226,130,0.15)]' : 'text-gray-400 hover:text-primary-dark hover:bg-[#161616]' }}">
+                    <svg class="w-4 h-4 shrink-0 icon-container" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                    <span class="text-xs font-bold whitespace-nowrap">Career & Education</span>
                 </div>
             </a>
             <a href="{{ route('admin.achievements.index') }}" class="sidebar-link {{ request()->routeIs('admin.achievements.*') ? 'active nav-active-glow' : 'hover:nav-active-glow' }} relative group block">
@@ -108,7 +115,7 @@
                 <button @click="isSidebarOpen = true" class="p-2 -ml-2 rounded-xl bg-white/5 text-white hover:bg-white/10 transition-all">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
                 </button>
-                <h1 class="text-xs font-black uppercase tracking-[0.3em] text-white">@yield('page-title', 'Dashboard')</h1>
+                <h1 class="text-xs font-black uppercase tracking-[0.3em] text-white">@yield('page-title', 'Admin Panel')</h1>
             </div>
             <div class="w-8 h-8 rounded-lg overflow-hidden border border-white/5 shadow-lg">
                 <img src="/logo.png" alt="Logo" class="w-full h-full object-cover">
@@ -117,7 +124,7 @@
 
         <!-- Top bar (Desktop) -->
         <div class="hidden md:flex border-b px-10 py-5 items-center justify-between sticky top-0 z-30" style="background:#0a0a0a;border-color:#1f1f1f">
-            <h1 class="text-xs font-black uppercase tracking-[0.3em] text-primary-dark">@yield('page-title', 'Dashboard')</h1>
+            <h1 class="text-xs font-black uppercase tracking-[0.3em] text-primary-dark">@yield('page-title', 'Admin Panel')</h1>
             <div class="flex items-center gap-4">
                 <div class="w-9 h-9 rounded-xl overflow-hidden border border-white/5 shadow-2xl">
                     <img src="/logo.png" alt="Logo" class="w-full h-full object-cover">
@@ -125,7 +132,7 @@
             </div>
         </div>
 
-        <div class="px-6 md:px-10 py-8 max-w-6xl">
+        <div class="px-6 md:px-16 py-10 max-w-4xl mx-auto">
             @yield('content')
         </div>
     </main>

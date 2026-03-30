@@ -200,10 +200,10 @@
                 <div class="flex flex-wrap items-center gap-1.5 sm:gap-2.5 mb-8">
                     <!-- All Filter -->
                     <button @click="activeFilter = 'all'; showAll = false"
-                        :class="activeFilter === 'all' ? 'bg-[#facc15] text-black border-[#facc15]' : 'bg-[#1a1a1a] text-gray-400 border-[#262626] hover:border-[#444]'"
+                        :class="activeFilter === 'all' ? 'bg-[#facc15] text-black border-[#facc15]' : 'bg-[#1a1a1a] text-gray-400 border-border hover:border-[#444]'"
                         class="flex items-center gap-1.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-[13px] font-bold border transition-all cursor-pointer whitespace-nowrap">
                         All
-                        <span :class="activeFilter === 'all' ? 'bg-black/10 text-black' : 'bg-[#262626] text-gray-500'"
+                        <span :class="activeFilter === 'all' ? 'bg-black/10 text-black' : 'bg-border text-gray-500'"
                             class="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold min-w-[18px] text-center">
                             {{ count($skills) }}
                         </span>
@@ -251,9 +251,11 @@
                 <!-- Load More / Show Less Button -->
                 <div x-show="activeFilter === 'all' && {{ count($skills) }} > limit" class="mt-8 flex justify-center">
                     <button @click="showAll = !showAll" 
-                            class="px-6 py-2 rounded-xl border border-[#262626] bg-[#1a1a1a] text-gray-400 text-xs font-bold hover:bg-[#222] hover:text-white transition-all duration-300 flex items-center gap-2">
-                        <span x-text="showAll ? 'Show Less' : 'Load More'"></span>
-                        <svg class="w-3.5 h-3.5 transition-transform duration-300" :class="showAll ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            class="relative px-6 py-2 rounded-full border border-white/5 bg-[#1a1a1a] text-gray-400 text-xs font-bold hover:bg-[#222] hover:text-white hover:border-primary-dark/50 transition-all duration-300 flex items-center gap-2 hover:shadow-[0_0_20px_rgba(13,226,130,0.2)] group">
+                        <span x-text="showAll ? 'Show Less' : 'Load More'" class="relative z-10"></span>
+                        <svg class="relative z-10 w-3.5 h-3.5 transition-transform duration-300" :class="showAll ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                        <!-- Inner Glow (Green) -->
+                        <div class="absolute inset-0 rounded-full bg-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                     </button>
                 </div>
             </div>
@@ -295,7 +297,8 @@
                 <div class="w-full flex justify-center">
                     <img src="https://raw.githubusercontent.com/platane/platane/output/github-contribution-grid-snake-dark.svg" 
                          alt="GitHub Snake Animation" 
-                         class="w-full opacity-90 hover:opacity-100 transition-opacity min-h-[120px] sm:min-h-[140px] object-contain">
+                         class="w-full opacity-90 hover:opacity-100 transition-opacity min-h-[120px] sm:min-h-[140px] object-contain"
+                         loading="lazy" decoding="async">
                 </div>
                 <div class="flex items-center justify-end gap-2 mt-2 text-[10px] text-gray-500">
                     <span>Less</span>

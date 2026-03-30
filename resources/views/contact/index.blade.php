@@ -18,14 +18,14 @@
         <!-- Grid Layout -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- GMAIL (Large) -->
-            <div class="md:col-span-2 group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#b91c1c] via-[#7f1d1d] to-black border border-white/5 p-8 transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl hover:shadow-red-900/20">
+            <div class="md:col-span-2 group relative overflow-hidden rounded-2xl bg-linear-to-br from-[#b91c1c] via-[#7f1d1d] to-black border border-white/5 p-8 transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl hover:shadow-red-900/20">
                 <div class="relative z-10 flex flex-col h-full justify-between">
                     <div>
                         <h3 class="text-2xl font-black text-white mb-2">Stay Connected</h3>
                         <p class="text-white/70 text-sm font-medium max-w-md leading-relaxed">Reach out via email for any inquiries or collaborations.</p>
                     </div>
                     <div class="mt-8 flex items-end justify-between">
-                        <a href="mailto:{{ $profile->email ?? '#' }}" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-6 py-2.5 rounded-xl text-sm font-black transition-all">
+                        <a href="mailto:dedejuniarputra99@gmail.com" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-6 py-2.5 rounded-xl text-sm font-black transition-all">
                             Go to Gmail
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>
@@ -38,14 +38,14 @@
             </div>
 
             <!-- INSTAGRAM -->
-            <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-tr from-[#facc15] via-[#ec4899] to-[#8b5cf6] border border-white/5 p-8 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-pink-500/10">
+            <div class="group relative overflow-hidden rounded-2xl bg-linear-to-tr from-[#facc15] via-[#ec4899] to-[#8b5cf6] border border-white/5 p-8 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-pink-500/10">
                 <div class="relative z-10 flex flex-col h-full justify-between">
                     <div>
                         <h3 class="text-2xl font-black text-white mb-2">Follow My Journey</h3>
                         <p class="text-white/80 text-sm font-medium leading-relaxed">Follow my creative journey.</p>
                     </div>
                     <div class="mt-12 flex items-end justify-between">
-                        <a href="{{ $profile->instagram ?? '#' }}" target="_blank" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all">
+                        <a href="https://www.instagram.com/dedejp_/" target="_blank" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all">
                             Go to Instagram
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>
@@ -57,14 +57,14 @@
             </div>
 
             <!-- LINKEDIN -->
-            <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0284c7] via-[#0369a1] to-black border border-white/5 p-8 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/10">
+            <div class="group relative overflow-hidden rounded-2xl bg-linear-to-br from-[#0284c7] via-[#0369a1] to-black border border-white/5 p-8 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/10">
                 <div class="relative z-10 flex flex-col h-full justify-between">
                     <div>
                         <h3 class="text-2xl font-black text-white mb-2">Let's Connect</h3>
                         <p class="text-white/80 text-sm font-medium leading-relaxed">Connect with me professionally.</p>
                     </div>
                     <div class="mt-12 flex items-end justify-between">
-                        <a href="{{ $profile->linkedin ?? '#' }}" target="_blank" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all">
+                        <a href="https://www.linkedin.com/in/dede-juniar-putra-2234032a1/" target="_blank" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all">
                             Go to Linkedin
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>
@@ -76,7 +76,7 @@
             </div>
 
             <!-- TIKTOK -->
-            <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#262626] via-[#171717] to-black border border-white/5 p-8 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-white/5">
+            <div class="group relative overflow-hidden rounded-2xl bg-linear-to-br from-border via-[#171717] to-black border border-white/5 p-8 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-white/5">
                 <div class="relative z-10 flex flex-col h-full justify-between">
                     <div>
                         <h3 class="text-2xl font-black text-white mb-2">Join the Fun</h3>
@@ -95,14 +95,14 @@
             </div>
 
             <!-- GITHUB -->
-            <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1e1b4b] via-[#0f172a] to-black border border-white/5 p-8 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-indigo-500/10">
+            <div class="group relative overflow-hidden rounded-2xl bg-linear-to-br from-[#1e1b4b] via-[#0f172a] to-black border border-white/5 p-8 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-indigo-500/10">
                 <div class="relative z-10 flex flex-col h-full justify-between">
                     <div>
                         <h3 class="text-2xl font-black text-white mb-2">Explore the Code</h3>
                         <p class="text-white/70 text-sm font-medium leading-relaxed">Explore my open-source work.</p>
                     </div>
                     <div class="mt-12 flex items-end justify-between">
-                        <a href="{{ $profile->github ?? '#' }}" target="_blank" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all">
+                        <a href="https://github.com/dedejuniarputra" target="_blank" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all">
                             Go to Github
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>

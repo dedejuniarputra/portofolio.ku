@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\AchievementController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ToolController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\ExperienceController;
+use App\Http\Controllers\Admin\EducationController;
 
 // ─── Auth ─────────────────────────────────────────────────────────────────
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login')->middleware('guest');
@@ -40,6 +42,13 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Experiences
+    Route::post('experiences/biography', [ExperienceController::class, 'updateBiography'])->name('experiences.biography.update');
+    Route::resource('experiences', ExperienceController::class);
+
+    // Education
+    Route::resource('educations', EducationController::class);
 
     // Skills
     Route::get('/skills', [SkillController::class, 'index'])->name('skills.index');

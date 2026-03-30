@@ -38,10 +38,8 @@
                     name="pin"
                     id="pin-input"
                     class="form-input text-center text-3xl tracking-[1em] font-black w-56 border-white/10 bg-white/5 focus:border-primary-dark focus:shadow-[0_0_20px_rgba(13,226,130,0.4)] transition-all duration-300 rounded-2xl outline-none"
-                    placeholder="••••"
+                    placeholder="PIN"
                     maxlength="4"
-                    pattern="\d*"
-                    inputmode="numeric"
                     autofocus
                     required
                 >
@@ -59,11 +57,8 @@
     </form>
 
     <script>
-        // Auto-focus and numeric only enforcement
+        // Auto-focus enforcement
         const pinInput = document.getElementById('pin-input');
-        pinInput.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-        });
     </script>
 
     <div class="mt-8 text-center">

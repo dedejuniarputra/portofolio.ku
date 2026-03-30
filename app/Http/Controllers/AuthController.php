@@ -10,7 +10,7 @@ class AuthController extends Controller
     public function showLogin()
     {
         if (Auth::check()) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.profile.edit');
         }
         return view('auth.login');
     }
@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'pin' => ['required', 'numeric', 'digits:4'],
+            'pin' => ['required', 'string', 'size:4'],
         ]);
 
         $user = \App\Models\User::first();
@@ -26,7 +26,7 @@ class AuthController extends Controller
         if ($user && \Illuminate\Support\Facades\Hash::check($request->pin, $user->password)) {
             Auth::login($user, $request->boolean('remember'));
             $request->session()->regenerate();
-            return redirect()->intended(route('admin.dashboard'));
+            return redirect()->intended(route('admin.profile.edit'));
         }
 
         return back()->withErrors([

@@ -32,9 +32,7 @@
                 <div class="flex items-center gap-3">
                     @if($project->tech_stack)
                         @foreach($project->tech_stack as $tech)
-                            <div class="w-5 h-5" title="{{ $tech }}">
-                                @include('components.tech-icon', ['name' => $tech])
-                            </div>
+                            <i class="{{ $tech }} colored text-lg transition-transform duration-300 hover:scale-125" title="{{ explode('-', $tech)[1] ?? $tech }}"></i>
                         @endforeach
                     @endif
                 </div>
@@ -94,10 +92,8 @@
                 <ul class="space-y-4">
                     @foreach($project->tech_stack as $tech)
                         <li class="flex items-center gap-4 group">
-                            <div class="w-5 h-5 transition-transform group-hover:scale-110">
-                                @include('components.tech-icon', ['name' => $tech])
-                            </div>
-                            <span class="text-sm font-medium text-gray-300 group-hover:text-primary transition-colors">{{ $tech }}</span>
+                            <i class="{{ $tech }} colored text-2xl transition-all duration-500 hover:scale-125"></i>
+                            <span class="text-sm font-bold uppercase tracking-widest text-gray-400 group-hover:text-primary transition-colors">{{ explode('-', $tech)[1] ?? $tech }}</span>
                         </li>
                     @endforeach
                 </ul>

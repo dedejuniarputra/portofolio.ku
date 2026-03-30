@@ -16,75 +16,53 @@
 <div class="card overflow-hidden">
     <div class="divide-y" style="divide-color:#141414">
         @forelse($projects as $p)
-        <div class="px-5 py-4 hover:bg-white/2 transition-colors group">
-            <!-- Project Image & Mobile Actions -->
-            <div class="flex items-start gap-4 sm:block">
+        <div class="px-5 py-4 hover:bg-white/2 transition-colors group flex items-start sm:items-center gap-6">
+            <!-- Project Image -->
+            <div class="shrink-0">
                 @if($p->image)
-                    <img src="{{ Storage::url($p->image) }}" class="w-20 h-14 sm:w-24 sm:h-16 rounded-lg object-cover shrink-0 shadow-lg border border-white/5">
+                    <img src="{{ Storage::url($p->image) }}" class="w-16 h-12 sm:w-20 sm:h-14 rounded-lg object-cover shadow-lg border border-white/5">
                 @else
-                    <div class="w-20 h-14 sm:w-24 sm:h-16 rounded-lg flex items-center justify-center shrink-0 text-lg border border-dashed border-white/10 bg-gray-950">📦</div>
+                    <div class="w-16 h-12 sm:w-20 sm:h-14 rounded-lg flex items-center justify-center border border-dashed border-white/10 bg-gray-950 text-base">📦</div>
                 @endif
-                
-                <!-- Mobile Only Actions (Next to image) -->
-                <div class="flex-1 sm:hidden flex flex-col justify-center gap-2">
-                    <div class="flex items-center gap-2">
-                        <span class="px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-primary-dark/10 text-primary-dark border border-primary-dark/20">{{ $p->type }}</span>
-                        <span class="status-badge status-{{ $p->status }} text-[9px]! px-2 py-0.5">{{ str_replace('-', ' ', $p->status) }}</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <a href="{{ route('admin.projects.edit', $p) }}" class="flex-1 text-center py-1.5 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400 hover:text-white transition-all">Edit</a>
-                        <form action="{{ route('admin.projects.destroy', $p) }}" method="POST" class="flex-1" onsubmit="return confirm('Delete project?')">
-                            @csrf @method('DELETE')
-                            <button class="w-full py-1.5 rounded-lg bg-rose-500/5 border border-rose-500/20 text-[10px] font-bold text-rose-500/80 hover:text-rose-500 transition-all">Delete</button>
-                        </form>
-                    </div>
-                </div>
             </div>
 
             <!-- Project Info -->
-            <div class="flex-1 min-w-0 flex flex-col">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-3 mb-2">
-                    <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-primary-dark transition-colors truncate">{{ $p->title }}</h3>
+            <div class="flex-1 min-w-0">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-1 overflow-hidden">
+                    <h3 class="text-sm font-bold text-white group-hover:text-primary-dark transition-colors truncate">{{ $p->title }}</h3>
                     
-                    <!-- Desktop Only Badges -->
-                    <div class="hidden sm:flex items-center gap-2">
-                        <span class="px-2 py-0.5 rounded-full text-[9px]! font-black uppercase tracking-wider bg-primary-dark/10 text-primary-dark border border-primary-dark/20">{{ $p->type }}</span>
-                        <span class="px-2 py-0.5 rounded-full text-[9px]! font-black uppercase tracking-wider bg-sky-500/10 text-sky-500 border border-sky-500/20">{{ $p->category }}</span>
-                        <span class="status-badge status-{{ $p->status }} text-[10px]">{{ str_replace('-', ' ', $p->status) }}</span>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-primary-dark/10 text-primary-dark border border-primary-dark/20">{{ $p->type }}</span>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2 mb-3">
-                    @if($p->is_featured) 
-                        <span class="px-2 py-0.5 rounded-full bg-[#fbbf24]/5 text-[#fbbf24] text-[9px] font-black uppercase tracking-widest border border-[#fbbf24]/20 flex items-center gap-1.5">
-                            <span class="w-1 h-1 rounded-full bg-[#fbbf24] animate-pulse"></span>
-                            Home Featured
-                        </span> 
+                <div class="space-y-2">
+                    <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider truncate">{{ $p->description }}</p>
+
+                    @if($p->tech_stack)
+                        <div class="flex items-center gap-2.5 mt-auto">
+                            @foreach(array_slice($p->tech_stack, 0, 6) as $tech)
+                                <i class="{{ $tech }} colored text-lg transition-transform duration-300 hover:scale-125" title="{{ explode('-', $tech)[1] ?? $tech }}"></i>
+                            @endforeach
+                            @if(count($p->tech_stack) > 6)
+                                <span class="text-[9px] font-black text-gray-700 tracking-widest">+{{ count($p->tech_stack) - 6 }}</span>
+                            @endif
+                        </div>
                     @endif
-                    <p class="text-[11px] text-gray-500 line-clamp-1 flex-1">{{ $p->description }}</p>
                 </div>
-
-                @if($p->tech_stack)
-                    <div class="flex flex-wrap gap-1.5 mt-auto">
-                        @foreach(array_slice($p->tech_stack, 0, 5) as $tech)
-                            <span class="text-[9px] px-2 py-0.5 rounded-md font-bold text-gray-400 border border-white/5" style="background:rgba(255,255,255,0.02)">{{ $tech }}</span>
-                        @endforeach
-                        @if(count($p->tech_stack) > 5)
-                            <span class="text-[9px] px-1 py-0.5 text-gray-600 font-bold">+{{ count($p->tech_stack) - 5 }}</span>
-                        @endif
-                    </div>
-                @endif
             </div>
 
-            <!-- Desktop Actions -->
-            <div class="hidden sm:flex flex-col items-center gap-2 shrink-0 self-center">
+            <!-- Action Buttons -->
+            <div class="hidden sm:flex items-center gap-3 shrink-0 border-l border-white/5 pl-8 ml-4">
                 <a href="{{ route('admin.projects.edit', $p) }}" 
-                   class="w-20 text-center py-2 rounded-xl bg-[#111] border border-white/5 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:border-white/20 transition-all">
+                   class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                     Edit
                 </a>
                 <form action="{{ route('admin.projects.destroy', $p) }}" method="POST" onsubmit="return confirm('Delete project?')">
                     @csrf @method('DELETE')
-                    <button class="w-20 py-2 rounded-xl bg-rose-500/5 border border-rose-500/10 text-[10px] font-black uppercase tracking-widest text-rose-500/60 hover:text-rose-500 hover:border-rose-500/30 transition-all">
+                    <button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-500/5 border border-rose-500/10 text-[10px] font-black uppercase tracking-widest text-rose-500/60 hover:text-rose-500 hover:bg-rose-500/10 hover:border-rose-500/30 transition-all">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                         Delete
                     </button>
                 </form>

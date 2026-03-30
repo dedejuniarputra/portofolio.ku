@@ -32,9 +32,12 @@ class AchievementController extends Controller
             'date' => 'nullable|date',
             'credential_url' => 'nullable|url',
             'order' => 'nullable|integer',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'nullable|file|mimes:jpg,jpeg,png,webp,pdf|max:5120',
         ]);
         if ($request->hasFile('image')) {
+            if (!Storage::disk('public')->exists('achievements')) {
+                Storage::disk('public')->makeDirectory('achievements');
+            }
             $validated['image'] = $request->file('image')->store('achievements', 'public');
         }
         Achievement::create($validated);
@@ -58,10 +61,13 @@ class AchievementController extends Controller
             'date' => 'nullable|date',
             'credential_url' => 'nullable|url',
             'order' => 'nullable|integer',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'nullable|file|mimes:jpg,jpeg,png,webp,pdf|max:5120',
         ]);
         if ($request->hasFile('image')) {
             if ($achievement->image) Storage::disk('public')->delete($achievement->image);
+            if (!Storage::disk('public')->exists('achievements')) {
+                Storage::disk('public')->makeDirectory('achievements');
+            }
             $validated['image'] = $request->file('image')->store('achievements', 'public');
         }
         $achievement->update($validated);

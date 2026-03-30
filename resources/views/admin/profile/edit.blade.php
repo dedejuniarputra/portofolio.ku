@@ -28,12 +28,8 @@
                 </div>
             </div>
             <div>
-                <label class="form-label">Short Bio</label>
-                <textarea name="bio" rows="3" class="form-input resize-none">{{ old('bio', $profile->bio) }}</textarea>
-            </div>
-            <div>
-                <label class="form-label">Long Bio</label>
-                <textarea name="long_bio" rows="4" class="form-input resize-none">{{ old('long_bio', $profile->long_bio) }}</textarea>
+                <label class="form-label">Short Bio <span class="text-[10px] text-primary-dark ml-2 uppercase tracking-tighter">(Home Page)</span></label>
+                <textarea name="bio" rows="3" class="form-input resize-none" placeholder="This bio appears on your Home page...">{{ old('bio', $profile->bio) }}</textarea>
             </div>
         </div>
 

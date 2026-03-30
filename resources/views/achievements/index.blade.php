@@ -1,177 +1,112 @@
 @extends('layouts.app')
 @section('title', 'Achievements')
 @section('content')
-<div x-data="{ 
-    showModal: false, 
-    activeAchievement: null,
-    openModal(achievement) {
-        this.activeAchievement = achievement;
-        this.showModal = true;
-        document.body.style.overflow = 'hidden';
-    },
-    closeModal() {
-        this.showModal = false;
-        document.body.style.overflow = 'auto';
-    }
-}" @keydown.escape.window="closeModal()">
+<div class="animate-fade-in-up stagger-1">
+    <div class="section-title mb-2">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.75z"/><path d="m9 12 2 2 4-4"/></svg>
+        Achievements
+    </div>
+    <p class="text-[15px] font-medium mb-8 text-gray-400">My professional certifications and achievements.</p>
     
-    <div class="animate-fade-in-up stagger-1">
-        <div class="section-title mb-2">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.75z"/><path d="m9 12 2 2 4-4"/></svg>
-            Achievements
-        </div>
-        <p class="text-[15px] font-medium mb-10 text-gray-400">My professional certifications and achievements.</p>
-        
-        <div class="mb-4">
-            <div class="text-[14px] font-bold text-gray-400 mb-6">
-                Total: {{ count($achievements) }}
-            </div>
-        </div>
-
-        @if(count($achievements) > 0)
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+    @if(count($achievements) > 0)
+        <div x-data="{ 
+                showAll: false, 
+                limit: window.innerWidth < 768 ? 4 : 6 
+             }" 
+             x-init="window.addEventListener('resize', () => { limit = window.innerWidth < 768 ? 4 : 6 })"
+             class="pb-20">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-full px-4 md:px-0">
                 @foreach($achievements as $achievement)
-                <div class="bg-[#141414] rounded-2xl border border-[#1f1f1f] overflow-hidden flex flex-col transition-all duration-300 hover:border-[#333] group animate-fade-in-up" 
-                     style="animation-delay: {{ $loop->index * 0.1 }}s">
+                <div class="group relative aspect-3/2 rounded-none overflow-hidden bg-[#0d0d0d] border border-white/5 hover:border-primary-dark/40 transition-all duration-1000 animate-fade-in-up shadow-[0_0_80px_rgba(0,0,0,0.8)]" 
+                     x-show="showAll || {{ $loop->index }} < limit"
+                     x-transition:enter="transition ease-out duration-700"
+                     x-transition:enter-start="opacity-0 transform translate-y-4"
+                     x-transition:enter-end="opacity-100 transform translate-y-0"
+                     style="animation-delay: {{ $loop->index * 0.1 }}s; {{ $loop->index >= 6 ? 'display: none;' : '' }}">
                     
-                    <!-- Certificate Image Container -->
-                    <div class="relative aspect-[4/3] overflow-hidden bg-black cursor-pointer" 
-                         @click="openModal({{ json_encode([
-                            'title' => $achievement->title,
-                            'issuer' => $achievement->issuer,
-                            'credential_id' => $achievement->credential_id,
-                            'type' => $achievement->type,
-                            'category' => $achievement->category,
-                            'date' => $achievement->date ? $achievement->date->format('F Y') : '-',
-                            'image' => $achievement->image ? Storage::url($achievement->image) : null,
-                            'url' => $achievement->credential_url
-                         ]) }})">
+                    <!-- Background Media Layer -->
+                    <div class="absolute inset-0 overflow-hidden">
                         @if($achievement->image)
-                            <img src="{{ Storage::url($achievement->image) }}" alt="{{ $achievement->title }}" 
-                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            @if(Str::endsWith(strtolower($achievement->image), '.pdf'))
+                                <div class="w-full h-full flex flex-col items-center justify-center bg-surface">
+                                    <div class="w-24 md:w-32 h-24 md:h-32 rounded-none bg-rose-500/3 flex items-center justify-center border border-rose-500/10 text-rose-500/20 mb-4 group-hover:scale-110 group-hover:text-rose-500 group-hover:bg-rose-500/10 transition-all duration-1000">
+                                        <svg class="w-12 md:w-16 h-12 md:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                                    </div>
+                                    <span class="text-[10px] md:text-sm font-black text-gray-800 uppercase tracking-widest group-hover:text-gray-600 transition-all duration-1000">Official Record</span>
+                                </div>
+                            @else
+                                <!-- Dual-Layer Dynamic Fit (Handles any orientation without cropping) -->
+                                <div class="relative w-full h-full bg-[#050505]">
+                                    <!-- Blurred Background Layer (Optional, for atmospheric fill) -->
+                                    <img src="{{ Storage::url($achievement->image) }}" alt="" 
+                                         class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-20 scale-110 pointer-events-none"
+                                         loading="lazy" decoding="async" width="600" height="400">
+                                    
+                                    <!-- Main Foreground Layer (Full Visibility) -->
+                                    <img src="{{ Storage::url($achievement->image) }}" alt="{{ $achievement->title }}" 
+                                         class="relative w-full h-full object-contain transition-all duration-[2s] group-hover:scale-105"
+                                         style="image-orientation: from-image;"
+                                         loading="lazy" decoding="async" width="600" height="400">
+                                </div>
+                            @endif
                         @else
-                            <div class="w-full h-full flex flex-col items-center justify-center bg-[#1a1a1a]">
-                                <svg class="w-12 h-12 text-[#262626] mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                <span class="text-[10px] font-bold text-[#262626] uppercase tracking-widest">Sertifikat</span>
+                            <div class="w-full h-full flex flex-col items-center justify-center bg-surface">
+                                <div class="w-24 md:w-32 h-24 md:h-32 rounded-none bg-primary-dark/3 flex items-center justify-center border border-primary-dark/10 text-primary-dark/20 mb-4 group-hover:scale-110 group-hover:text-primary-dark group-hover:bg-primary-dark/10 transition-all duration-1000">
+                                    <svg class="w-12 md:w-16 h-12 md:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                <span class="text-[10px] md:text-sm font-black text-gray-800 uppercase tracking-widest">Recognition</span>
                             </div>
                         @endif
-                        
-                        <!-- Hover Overlay -->
-                        <div class="absolute inset-0 bg-black/80 backdrop-blur-[2px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div class="flex items-center gap-1.5 text-white font-bold text-[11px] uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                View Details
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </div>
+                    </div>
+
+                    <!-- Hover Masking & Minimalist Bottom Label (Non-Intrusive) -->
+                    <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6 md:p-8 text-left z-10">
+                        <div class="transform transition-all duration-700 ease-out translate-y-4 group-hover:translate-y-0 text-white max-w-full">
+                            <!-- Title (Minimalist Scale) -->
+                            <h3 class="text-base md:text-xl font-semibold tracking-wide mb-2 leading-tight drop-shadow-xl">
+                                {{ $achievement->title }}
+                            </h3>
+                            
+                            <!-- Thin Accent Line -->
+                            <div class="w-8 md:w-12 h-px bg-primary-dark mb-2 shadow-[0_0_5px_rgba(34,197,94,0.3)]"></div>
+
+                            <!-- Subtitle (Elegant, Small Label) -->
+                            @if($achievement->description)
+                                <p class="text-primary-dark/90 font-black uppercase tracking-[0.4em] text-[8px] md:text-[10px] transition-all duration-700">
+                                    {{ $achievement->description }}
+                                </p>
+                            @endif
                         </div>
                     </div>
 
-                    <!-- Card Content -->
-                    <div class="p-5 md:p-6 flex-1 flex flex-col">
-                        <div class="text-[#737373] text-[11px] tracking-widest font-bold mb-2 uppercase truncate">
-                            {{ $achievement->credential_id ?? 'No Credential ID' }}
-                        </div>
-                        <h3 class="text-white font-bold text-base md:text-[17px] leading-tight mb-1 group-hover:text-[#00f2ff] transition-colors">
-                            {{ $achievement->title }}
-                        </h3>
-                        <p class="text-[#a3a3a3] text-[13px] mb-5">{{ $achievement->issuer }}</p>
-
-                        <!-- Tags -->
-                        <div class="flex flex-wrap gap-2 mt-auto mb-6">
-                            @if($achievement->type)
-                                <span class="px-3 py-1 rounded-full border border-[#262626] bg-[#1a1a1a] text-[#a3a3a3] text-[11px] font-bold">
-                                    {{ $achievement->type }}
-                                </span>
-                            @endif
-                            @if($achievement->category)
-                                <span class="px-3 py-1 rounded-full border border-[#262626] bg-[#1a1a1a] text-[#a3a3a3] text-[11px] font-bold">
-                                    {{ $achievement->category }}
-                                </span>
-                            @endif
-                        </div>
-
-                        <!-- Footer -->
-                        <div class="flex items-center justify-between pt-5 border-t border-[#1f1f1f]">
-                            <div class="text-[#525252] text-[11px] font-black uppercase tracking-wider">
-                                ISSUED ON {{ $achievement->date ? $achievement->date->format('F Y') : '-' }}
-                            </div>
-                            <div class="flex items-center gap-3">
-                                @if($achievement->credential_url)
-                                    <a href="{{ $achievement->credential_url }}" target="_blank" class="text-[#525252] hover:text-[#00f2ff] transition-colors" title="View Original Credential">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Edge Glow -->
+                    <div class="absolute inset-0 border-4 border-primary-dark/0 group-hover:border-primary-dark/10 transition-all duration-1000 rounded-none pointer-events-none"></div>
                 </div>
-        @endforeach
+                @endforeach
             </div>
-        @else
-            <div class="text-center py-20 bg-[#141414] rounded-3xl border border-[#1f1f1f]">
-                <svg class="w-16 h-16 mx-auto mb-4 text-[#262626]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                <p class="text-[#525252] font-bold">No awards added yet.</p>
-            </div>
-        @endif
-    </div>
 
-    <!-- Detail Modal -->
-    <template x-if="showModal">
-        <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <!-- Backdrop -->
-            <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" @click="closeModal()" 
-                 x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                 x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
-            
-            <!-- Modal Content -->
-            <div class="relative bg-[#0a0a0a] border border-[#1f1f1f] rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col md:flex-row shadow-2xl"
-                 x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                 x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
-                
-                <!-- Large Image Section -->
-                <div class="flex-1 bg-black flex items-center justify-center overflow-auto p-4 lg:p-8">
-                    <img :src="activeAchievement.image" :alt="activeAchievement.title" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl">
-                </div>
-
-                <!-- Info Section -->
-                <div class="w-full md:w-[320px] lg:w-[380px] p-8 lg:p-10 border-l border-[#1f1f1f] bg-[#0d0d0d] flex flex-col overflow-y-auto">
-                    <button @click="closeModal()" class="absolute top-6 right-6 p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-all z-10">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            <template x-if="{{ count($achievements) }} > limit">
+                <div class="mt-12 flex justify-center">
+                    <button x-on:click="showAll = !showAll" 
+                            class="relative px-6 py-2 rounded-full border border-white/5 bg-[#1a1a1a] text-gray-400 text-xs font-bold hover:bg-[#222] hover:text-white hover:border-primary-dark/50 transition-all duration-300 flex items-center gap-2 hover:shadow-[0_0_20px_rgba(13,226,130,0.2)] group">
+                        <span x-text="showAll ? 'Show Less' : 'Load More'" class="relative z-10"></span>
+                        <svg class="relative z-10 w-3.5 h-3.5 transition-transform duration-500" 
+                             :class="showAll ? 'rotate-180' : ''" 
+                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                        <!-- Inner Glow (Green) -->
+                        <div class="absolute inset-0 rounded-full bg-primary-dark/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                     </button>
-
-                    <h2 class="text-white font-black text-2xl lg:text-3xl leading-tight mb-4 pr-10" x-text="activeAchievement.title"></h2>
-                    <p class="text-[#a3a3a3] text-lg mb-8" x-text="activeAchievement.issuer"></p>
-
-                    <div class="space-y-6">
-                        <div>
-                            <div class="text-[#525252] text-[11px] font-black uppercase tracking-widest mb-1">CREDENTIAL ID</div>
-                            <div class="text-[#d4d4d4] font-bold break-all" x-text="activeAchievement.credential_id"></div>
-                        </div>
-                        <div>
-                            <div class="text-[#525252] text-[11px] font-black uppercase tracking-widest mb-1">TYPE</div>
-                            <div class="text-[#d4d4d4] font-bold" x-text="activeAchievement.type"></div>
-                        </div>
-                        <div>
-                            <div class="text-[#525252] text-[11px] font-black uppercase tracking-widest mb-1">CATEGORY</div>
-                            <div class="text-[#d4d4d4] font-bold" x-text="activeAchievement.category"></div>
-                        </div>
-                        <div>
-                            <div class="text-[#525252] text-[11px] font-black uppercase tracking-widest mb-1">ISSUE DATE</div>
-                            <div class="text-[#d4d4d4] font-bold" x-text="activeAchievement.date"></div>
-                        </div>
-                    </div>
-
-                    <div class="mt-auto pt-10">
-                        <template x-if="activeAchievement.url">
-                            <a :href="activeAchievement.url" target="_blank" 
-                               class="flex items-center justify-center gap-2 w-full py-2 rounded-xl bg-white/5 border border-white/10 text-white font-bold transition-all hover:bg-white/10 hover:scale-[1.02] active:scale-95">
-                                View Original
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                            </a>
-                        </template>
-                    </div>
                 </div>
-            </div>
+            </template>
         </div>
-    </template>
+    @else
+        <div class="text-center py-60 bg-[#0d0d0d] rounded-none border border-white/5 mx-auto max-w-6xl">
+            <svg class="w-32 h-32 mx-auto mb-12 text-white/5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z"/></svg>
+            <p class="text-gray-900 font-black text-xl uppercase tracking-[1.5em]">Stillness</p>
+        </div>
+    @endif
 </div>
 @endsection

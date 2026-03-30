@@ -12,7 +12,7 @@ class AboutController extends Controller
     {
         $profile = Profile::first();
         $experiences = Experience::orderBy('order')->get();
-        $educations = Education::orderBy('order')->get();
+        $educations = Education::orderBy('order')->orderByDesc('start_date')->get();
         
         return view('about.index', compact('profile', 'experiences', 'educations'));
     }

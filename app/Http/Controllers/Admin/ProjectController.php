@@ -11,7 +11,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::orderBy('order')->get();
+        $projects = Project::orderBy('order', 'asc')->orderBy('created_at', 'asc')->get();
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -25,27 +25,30 @@ class ProjectController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'type' => 'required|string|max:100',
-            'category' => 'required|string|max:100',
+            'category' => 'nullable|string|max:100',
             'description' => 'required|string',
             'long_description' => 'nullable|string',
             'tech_stack' => 'nullable|string',
-            'demo_url' => 'nullable|url',
-            'github_url' => 'nullable|url',
-            'status' => 'required|in:completed,in-progress,archived',
+            'demo_url' => 'required|url',
+            'status' => 'nullable|in:completed,in-progress,archived',
             'is_featured' => 'boolean',
             'order' => 'nullable|integer',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        $validated['is_featured'] = $request->boolean('is_featured');
+        $validated['category'] = $request->input('category', 'Proyek Pribadi');
+        $validated['status'] = $request->input('status', 'completed');
+        $validated['is_featured'] = $request->boolean('is_featured', true);
         $validated['tech_stack'] = $request->tech_stack
             ? array_filter(array_map('trim', explode(',', $request->tech_stack)))
             : [];
 
         if ($request->hasFile('image')) {
+            if (!Storage::disk('public')->exists('projects')) {
+                Storage::disk('public')->makeDirectory('projects');
+            }
             $validated['image'] = $request->file('image')->store('projects', 'public');
         }
-
         Project::create($validated);
         return redirect()->route('admin.projects.index')->with('success', 'Project berhasil ditambahkan!');
     }
@@ -60,25 +63,29 @@ class ProjectController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'type' => 'required|string|max:100',
-            'category' => 'required|string|max:100',
+            'category' => 'nullable|string|max:100',
             'description' => 'required|string',
             'long_description' => 'nullable|string',
             'tech_stack' => 'nullable|string',
-            'demo_url' => 'nullable|url',
-            'github_url' => 'nullable|url',
-            'status' => 'required|in:completed,in-progress,archived',
+            'demo_url' => 'required|url',
+            'status' => 'nullable|in:completed,in-progress,archived',
             'is_featured' => 'boolean',
             'order' => 'nullable|integer',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        $validated['is_featured'] = $request->boolean('is_featured');
+        $validated['category'] = $request->input('category', $project->category ?? 'Proyek Pribadi');
+        $validated['status'] = $request->input('status', $project->status ?? 'completed');
+        $validated['is_featured'] = $request->boolean('is_featured', $project->is_featured ?? true);
         $validated['tech_stack'] = $request->tech_stack
             ? array_filter(array_map('trim', explode(',', $request->tech_stack)))
             : [];
 
         if ($request->hasFile('image')) {
             if ($project->image) Storage::disk('public')->delete($project->image);
+            if (!Storage::disk('public')->exists('projects')) {
+                Storage::disk('public')->makeDirectory('projects');
+            }
             $validated['image'] = $request->file('image')->store('projects', 'public');
         }
 

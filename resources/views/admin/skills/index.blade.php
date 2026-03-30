@@ -63,7 +63,7 @@
     <!-- Skills List -->
     <div class="lg:col-span-2">
 <div class="card overflow-hidden">
-    <div class="px-5 py-3 border-b border-white/5 bg-white/[0.01]">
+    <div class="px-5 py-3 border-b border-white/5 bg-white/1">
             <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Categories ({{ count($categories) }})</h3>
     </div>
     <div class="divide-y" style="divide-color:#141414">
@@ -82,14 +82,16 @@
                     <p class="text-[10px] font-bold text-gray-600 truncate">{{ $skill->category->name ?? '-' }}</p>
                 </div>
             </div>
-            <div class="flex items-center gap-2 shrink-0">
+            <div class="flex items-center gap-3 shrink-0">
                 <button onclick="openEditSkill({{ $skill->id }}, '{{ $skill->skill_category_id }}', '{{ addslashes($skill->name) }}', '{{ $skill->icon }}', '{{ $skill->color }}', {{ $skill->is_featured ? 'true' : 'false' }})"
-                    class="w-14 text-center py-1.5 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400 hover:text-white hover:border-white/20 transition-all">
+                    class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-[10px] font-bold text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                     Edit
                 </button>
                 <form action="{{ route('admin.skills.destroy', $skill) }}" method="POST" onsubmit="return confirm('Delete skill?')">
                     @csrf @method('DELETE')
-                    <button type="submit" class="px-3 py-1.5 rounded-lg bg-rose-500/5 border border-rose-500/10 text-[10px] font-bold text-rose-500/60 hover:text-rose-500 hover:border-rose-500/30 transition-all">
+                    <button type="submit" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-rose-500/5 border border-rose-500/10 text-[10px] font-bold text-rose-500/60 hover:text-rose-500 hover:bg-rose-500/10 hover:border-rose-500/30 transition-all">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                         Delete
                     </button>
                 </form>
