@@ -24,7 +24,7 @@ class AuthController extends Controller
         $user = \App\Models\User::first();
 
         if ($user && \Illuminate\Support\Facades\Hash::check($request->pin, $user->password)) {
-            Auth::login($user, $request->boolean('remember'));
+            Auth::login($user);
             $request->session()->regenerate();
             return redirect()->intended(route('admin.profile.edit'));
         }

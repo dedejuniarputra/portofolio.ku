@@ -27,8 +27,9 @@ class ProjectController extends Controller
             'type' => 'required|string|max:100',
             'category' => 'nullable|string|max:100',
             'description' => 'required|string',
-            'long_description' => 'nullable|string',
+            'introduction' => 'nullable|string',
             'tech_stack' => 'nullable|string',
+            'features' => 'nullable|string',
             'demo_url' => 'required|url',
             'status' => 'nullable|in:completed,in-progress,archived',
             'is_featured' => 'boolean',
@@ -41,6 +42,9 @@ class ProjectController extends Controller
         $validated['is_featured'] = $request->boolean('is_featured', true);
         $validated['tech_stack'] = $request->tech_stack
             ? array_filter(array_map('trim', explode(',', $request->tech_stack)))
+            : [];
+        $validated['features'] = $request->features
+            ? array_filter(array_map('trim', explode("\n", $request->features)))
             : [];
 
         if ($request->hasFile('image')) {
@@ -65,8 +69,9 @@ class ProjectController extends Controller
             'type' => 'required|string|max:100',
             'category' => 'nullable|string|max:100',
             'description' => 'required|string',
-            'long_description' => 'nullable|string',
+            'introduction' => 'nullable|string',
             'tech_stack' => 'nullable|string',
+            'features' => 'nullable|string',
             'demo_url' => 'required|url',
             'status' => 'nullable|in:completed,in-progress,archived',
             'is_featured' => 'boolean',
@@ -79,6 +84,9 @@ class ProjectController extends Controller
         $validated['is_featured'] = $request->boolean('is_featured', $project->is_featured ?? true);
         $validated['tech_stack'] = $request->tech_stack
             ? array_filter(array_map('trim', explode(',', $request->tech_stack)))
+            : [];
+        $validated['features'] = $request->features
+            ? array_filter(array_map('trim', explode("\n", $request->features)))
             : [];
 
         if ($request->hasFile('image')) {

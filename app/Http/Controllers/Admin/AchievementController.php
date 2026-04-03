@@ -25,12 +25,6 @@ class AchievementController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'issuer' => 'nullable|string|max:255',
-            'credential_id' => 'nullable|string|max:255',
-            'type' => 'nullable|string|max:255',
-            'category' => 'nullable|string|max:255',
-            'date' => 'nullable|date',
-            'credential_url' => 'nullable|url',
             'order' => 'nullable|integer',
             'image' => 'nullable|file|mimes:jpg,jpeg,png,webp,pdf|max:5120',
         ]);
@@ -54,12 +48,6 @@ class AchievementController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'issuer' => 'nullable|string|max:255',
-            'credential_id' => 'nullable|string|max:255',
-            'type' => 'nullable|string|max:255',
-            'category' => 'nullable|string|max:255',
-            'date' => 'nullable|date',
-            'credential_url' => 'nullable|url',
             'order' => 'nullable|integer',
             'image' => 'nullable|file|mimes:jpg,jpeg,png,webp,pdf|max:5120',
         ]);

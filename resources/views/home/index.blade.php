@@ -262,7 +262,7 @@
         </section>
 
         <!-- GitHub Activity Section -->
-        <section class="mt-14 animate-fade-in-up stagger-3" x-data="githubActivity()">
+        <section class="mt-14 animate-fade-in-up stagger-3">
             <div class="flex items-center justify-between mb-8">
                 <div class="section-title text-gray-200 font-bold mb-0 flex items-center gap-2">
                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -278,17 +278,23 @@
                 <!-- Followers -->
                 <div class="bg-[#0d1117] border border-[#30363d] rounded-2xl p-6 text-center hover:border-[#facc15]/30 transition-all group">
                     <div class="text-[12px] font-bold text-gray-500 uppercase tracking-widest mb-1 group-hover:text-gray-400 transition-colors">Followers</div>
-                    <div class="text-3xl font-black text-[#facc15]" x-text="userData ? userData.followers : '...'">0</div>
+                    <div class="text-3xl font-black text-[#facc15]">
+                        {{ number_format($github['followers'] ?? 0) }}
+                    </div>
                 </div>
                 <!-- Following -->
                 <div class="bg-[#0d1117] border border-[#30363d] rounded-2xl p-6 text-center hover:border-[#facc15]/30 transition-all group">
                     <div class="text-[12px] font-bold text-gray-500 uppercase tracking-widest mb-1 group-hover:text-gray-400 transition-colors">Following</div>
-                    <div class="text-3xl font-black text-[#facc15]" x-text="userData ? userData.following : '...'">0</div>
+                    <div class="text-3xl font-black text-[#facc15]">
+                        {{ number_format($github['following'] ?? 0) }}
+                    </div>
                 </div>
                 <!-- Repos -->
                 <div class="bg-[#0d1117] border border-[#30363d] rounded-2xl p-6 text-center hover:border-[#facc15]/30 transition-all group">
                     <div class="text-[12px] font-bold text-gray-500 uppercase tracking-widest mb-1 group-hover:text-gray-400 transition-colors">Repositories</div>
-                    <div class="text-3xl font-black text-[#facc15]" x-text="userData ? userData.public_repos : '...'">0</div>
+                    <div class="text-3xl font-black text-[#facc15]">
+                        {{ number_format($github['public_repos'] ?? 0) }}
+                    </div>
                 </div>
             </div>
 
@@ -358,20 +364,7 @@
                 }
             }
 
-            // GitHub Activity Logic
-            function githubActivity() {
-                return {
-                    userData: null,
-                    async init() {
-                        try {
-                            const userRes = await fetch('https://api.github.com/users/dedejuniarputra');
-                            this.userData = await userRes.json();
-                        } catch (e) {
-                            console.error('Failed to fetch GitHub data', e);
-                        }
-                    }
-                }
-            }
+
 
             // Framer Motion-like stagger animation on scroll
             document.querySelectorAll('[class*="stagger-"]').forEach((el, i) => {

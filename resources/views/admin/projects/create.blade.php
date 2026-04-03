@@ -25,8 +25,16 @@
             </div>
 
             <div>
-                <label class="form-label">Description *</label>
-                <textarea name="description" rows="5" class="form-input resize-none" placeholder="Provide a detailed overview of your project" required></textarea>
+                <label class="form-label">Short Description * (For Card)</label>
+                <textarea name="description" rows="3" class="form-input resize-none" placeholder="Brief summary for project cards" required></textarea>
+            </div>
+
+            <div>
+                <label class="form-label flex items-center gap-2">
+                    <span>Introduction (Below Image)</span>
+                    <span class="text-[10px] text-gray-500 font-normal">Optional narrative text</span>
+                </label>
+                <textarea name="introduction" rows="5" class="form-input resize-none" placeholder="Detailed narrative for the introduction section"></textarea>
             </div>
         </div>
 
@@ -50,7 +58,7 @@
                     </div>
                     <input type="text" name="tech_stack" x-model="stack" class="form-input py-3" placeholder="e.g. devicon-laravel-original, ...">
                     
-                    <!-- Preview -->
+                    <!-- Tech Preview -->
                     <div class="p-4 rounded-xl bg-white/2 border border-dashed border-white/5 min-h-[100px] flex flex-wrap items-center gap-4">
                         <template x-if="icons.length === 0">
                             <span class="text-[10px] text-gray-600 font-bold uppercase tracking-widest mx-auto">Icon Preview</span>
@@ -62,12 +70,43 @@
                             </div>
                         </template>
                     </div>
+
+                    <div class="pt-4 border-t border-white/5">
+                        <label class="form-label mb-3">Project Features</label>
+                        <textarea name="features" class="form-input py-3 text-xs h-32 resize-none" placeholder="Realtime Chat&#10;Secure Authentication&#10;Payment Integration"></textarea>
+                        <p class="text-[9px] text-gray-600 mt-2 uppercase font-bold tracking-widest">Enter each feature on a new line (use Enter)</p>
+                    </div>
                 </div>
 
                 <!-- Right: Image -->
-                <div>
+                <div x-data="{ 
+                    imagePreview: null,
+                    handleFileSelect(event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            this.imagePreview = URL.createObjectURL(file);
+                        }
+                    }
+                }">
                     <label class="form-label mb-3">Project Image *</label>
-                    <input type="file" name="image" accept="image/*" class="form-input text-xs py-4 @error('image') border-rose-500 @enderror" required>
+                    
+                    <!-- Preview Container -->
+                    <div class="mb-4 aspect-video rounded-xl bg-white/2 border border-dashed border-white/10 flex items-center justify-center overflow-hidden transition-all duration-500"
+                         :class="imagePreview ? 'border-primary-dark/30' : ''">
+                        <template x-if="!imagePreview">
+                            <div class="text-center">
+                                <svg class="w-10 h-10 text-gray-700 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                <span class="text-[10px] text-gray-600 font-bold uppercase tracking-widest">Image Preview</span>
+                            </div>
+                        </template>
+                        <template x-if="imagePreview">
+                            <img :src="imagePreview" class="w-full h-full object-cover animate-fade-in">
+                        </template>
+                    </div>
+
+                    <input type="file" name="image" accept="image/*" @change="handleFileSelect" class="form-input text-xs py-4 @error('image') border-rose-500 @enderror" required>
                     @error('image')
                         <p class="text-[10px] text-rose-500 mt-1 uppercase font-bold tracking-wider">{{ $message }}</p>
                     @enderror

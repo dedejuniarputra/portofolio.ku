@@ -45,7 +45,7 @@
                         <p class="text-white/80 text-sm font-medium leading-relaxed">Follow my creative journey.</p>
                     </div>
                     <div class="mt-12 flex items-end justify-between">
-                        <a href="https://www.instagram.com/dedejp_/" target="_blank" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all">
+                        <a href="{{ $profile->instagram ?? 'https://www.instagram.com/deezxz__?igsh=MWY0Y294YW1pZmF3Yg==' }}" target="_blank" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all">
                             Go to Instagram
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>
@@ -64,7 +64,7 @@
                         <p class="text-white/80 text-sm font-medium leading-relaxed">Connect with me professionally.</p>
                     </div>
                     <div class="mt-12 flex items-end justify-between">
-                        <a href="https://www.linkedin.com/in/dede-juniar-putra-2234032a1/" target="_blank" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all">
+                        <a href="{{ $profile->linkedin ?? 'https://www.linkedin.com/in/dedejuniarputraaa/' }}" target="_blank" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-5 py-2.5 rounded-xl text-sm font-black transition-all">
                             Go to Linkedin
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>

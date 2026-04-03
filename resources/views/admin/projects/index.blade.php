@@ -16,31 +16,26 @@
 <div class="card overflow-hidden">
     <div class="divide-y" style="divide-color:#141414">
         @forelse($projects as $p)
-        <div class="px-5 py-4 hover:bg-white/2 transition-colors group flex items-start sm:items-center gap-6">
-            <!-- Project Image -->
-            <div class="shrink-0">
-                @if($p->image)
-                    <img src="{{ Storage::url($p->image) }}" class="w-16 h-12 sm:w-20 sm:h-14 rounded-lg object-cover shadow-lg border border-white/5">
-                @else
-                    <div class="w-16 h-12 sm:w-20 sm:h-14 rounded-lg flex items-center justify-center border border-dashed border-white/10 bg-gray-950 text-base">📦</div>
-                @endif
-            </div>
-
-            <!-- Project Info -->
-            <div class="flex-1 min-w-0">
-                <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-1 overflow-hidden">
-                    <h3 class="text-sm font-bold text-white group-hover:text-primary-dark transition-colors truncate">{{ $p->title }}</h3>
-                    
-                    <div class="flex items-center gap-2 shrink-0">
+        <div class="px-5 py-4 hover:bg-white/2 transition-colors group flex items-center justify-between gap-6">
+            <!-- Project Image & Info -->
+            <div class="flex items-center gap-6 min-w-0 flex-1">
+                <div class="shrink-0">
+                    @if($p->image)
+                        <img src="{{ Storage::url($p->image) }}" class="w-16 h-12 sm:w-20 sm:h-14 rounded-lg object-cover shadow-lg border border-white/5">
+                    @else
+                        <div class="w-16 h-12 sm:w-20 sm:h-14 rounded-lg flex items-center justify-center border border-dashed border-white/10 bg-gray-950 text-base">📦</div>
+                    @endif
+                </div>
+ 
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-0.5">
+                        <h3 class="text-sm font-bold text-white group-hover:text-primary-dark transition-colors truncate">{{ $p->title }}</h3>
                         <span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-primary-dark/10 text-primary-dark border border-primary-dark/20">{{ $p->type }}</span>
                     </div>
-                </div>
-
-                <div class="space-y-2">
-                    <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider truncate">{{ $p->description }}</p>
-
+                    <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider truncate mb-2">{{ $p->description }}</p>
+                    
                     @if($p->tech_stack)
-                        <div class="flex items-center gap-2.5 mt-auto">
+                        <div class="flex items-center gap-2.5">
                             @foreach(array_slice($p->tech_stack, 0, 6) as $tech)
                                 <i class="{{ $tech }} colored text-lg transition-transform duration-300 hover:scale-125" title="{{ explode('-', $tech)[1] ?? $tech }}"></i>
                             @endforeach
@@ -51,9 +46,9 @@
                     @endif
                 </div>
             </div>
-
+ 
             <!-- Action Buttons -->
-            <div class="hidden sm:flex items-center gap-3 shrink-0 border-l border-white/5 pl-8 ml-4">
+            <div class="flex items-center gap-3 shrink-0 border-l border-white/5 pl-8 ml-4">
                 <a href="{{ route('admin.projects.edit', $p) }}" 
                    class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>

@@ -36,47 +36,58 @@
                  x-transition:enter-start="opacity-0 transform translate-y-4"
                  x-transition:enter-end="opacity-100 transform translate-y-0"
                  style="{{ $loop->index >= 4 ? 'display: none;' : '' }}"
-                 class="group relative bg-[#0d0d0d] border border-white/5 hover:border-primary-dark/40 transition-all duration-700 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] hover:shadow-[0_0_80px_rgba(0,0,0,0.8)] rounded-xl">
-                <!-- Project Image -->
-                <div class="relative aspect-video overflow-hidden">
+                 class="group relative bg-[#0d0d0d] border border-white/5 hover:border-primary-dark/30 rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 shadow-2xl flex flex-col h-full animate-fade-in-up stagger-1">
+                
+                <!-- Project Image & Overlay -->
+                <div class="relative aspect-video overflow-hidden border-b border-white/5">
                     @if($project->image)
-                        <img src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" 
-                             class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                             loading="lazy" decoding="async" width="600" height="337">
+                        <img src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     @else
-                        <div class="w-full h-full bg-surface-2 flex items-center justify-center">
-                            <svg class="w-12 h-12 text-white/5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <div class="w-full h-full bg-gray-900 flex items-center justify-center text-gray-800">
+                            <svg class="w-12 h-12 opacity-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         </div>
                     @endif
 
-                    <!-- Redirect Icon (Green Glow Style) -->
-                    @if($project->demo_url)
-                        <a href="{{ $project->demo_url }}" target="_blank" 
-                           class="absolute top-3 right-3 z-40 w-8 h-8 flex items-center justify-center bg-primary-dark/5 backdrop-blur-xl rounded-full border border-primary-dark/20 text-primary-dark hover:bg-primary-dark hover:text-black hover:scale-110 transition-all duration-500 shadow-[0_0_10px_rgba(13,226,130,0.2)] hover:shadow-[0_0_20px_rgba(13,226,130,0.5)] group"
-                           title="Visit Project">
-                            <svg class="w-3.5 h-3.5 transition-transform duration-500 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    <!-- Hover Effect: View Project (Style Match: Gambar 2 - Reduced Size) -->
+                    <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm shadow-inner">
+                        <a href="{{ route('projects.show', $project) }}" class="flex items-center gap-2.5 text-white font-medium text-xl tracking-tight transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:scale-105 active:scale-95">
+                            <span class="opacity-90">View Project</span>
+                            <svg class="w-6 h-6 opacity-80 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
                         </a>
-                    @endif
+                    </div>
                 </div>
 
-                <!-- Project Body -->
-                <div class="p-4 md:p-5">
-                    <h3 class="text-[17px] font-black text-white leading-tight mb-0.5 uppercase tracking-widest group-hover:text-primary-dark transition-colors duration-700">{{ $project->title }}</h3>
-                    <p class="text-[12.5px] text-gray-400 leading-relaxed line-clamp-2">{{ $project->description }}</p>
-                    
-                    <!-- Tech Stack Icons & Star Reaction Row -->
-                    <div class="flex items-center justify-between mt-2.5 pt-2.5 border-t border-white/5" x-data="{ 
+                <!-- Project Content -->
+                <div class="p-5 flex flex-col flex-1">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-black text-primary-dark mb-2 uppercase tracking-wide transition-colors duration-500">{{ $project->title }}</h3>
+                        <p class="text-[13px] text-gray-400 leading-relaxed line-clamp-2 mb-4 font-medium">{{ $project->description }}</p>
+                    </div>
+
+                    <!-- Tech Stack Icons (Enhancement Merged) -->
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+                        <div class="flex items-center gap-4 flex-wrap">
+                            @if($project->tech_stack)
+                                @foreach($project->tech_stack as $tech)
+                                    <div class="group/icon">
+                                        <i class="{{ $tech }} colored text-lg transition-transform duration-300 group-hover/icon:scale-110" title="{{ ucfirst(explode('-', $tech)[1] ?? $tech) }}"></i>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+
+                        <!-- Reactions (Enhancement Kept) -->
+                        <div x-data="{ 
                             count: {{ $project->reactions['star'] ?? 0 }},
                             loading: false,
-                            react() {
+                            toggle() {
                                 if(this.loading) return;
                                 this.loading = true;
                                 fetch('{{ route('projects.react', $project) }}', {
                                     method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                    },
+                                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}', 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ type: 'star' })
                                 })
                                 .then(res => res.json())
@@ -86,26 +97,12 @@
                                 })
                                 .catch(() => this.loading = false);
                             }
-                        }">
-                        <div class="flex items-center gap-4 flex-wrap">
-                            @if($project->tech_stack)
-                                @foreach($project->tech_stack as $tech)
-                                    <i class="{{ $tech }} colored text-[22px] transition-all duration-500 hover:scale-125" title="{{ explode('-', $tech)[1] ?? $tech }}"></i>
-                                @endforeach
-                            @endif
-                        </div>
-
-                        <!-- Star Appreciation Button -->
-                        <button @click="react()" 
-                           class="relative shrink-0 hover:scale-110 transition-all duration-500 group/link flex items-center gap-2.5 px-4 py-2 bg-white/3 rounded-full border border-white/5 hover:border-[#facc15]/30"
-                           :class="loading ? 'opacity-50 pointer-events-none' : ''">
-                            <div class="absolute inset-0 bg-[#facc15]/20 blur-xl opacity-0 group-hover/link:opacity-100 transition-opacity duration-700"></div>
-                            <span class="relative text-[11px] font-black text-gray-400 group-hover/link:text-white transition-colors" x-text="count"></span>
-                            <svg class="relative w-4.5 h-4.5 text-[#facc15] drop-shadow-[0_0_15px_rgba(250,204,21,0.8)] transition-transform group-active:scale-125" 
-                                 fill="currentColor" viewBox="0 0 24 24">
+                        }" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/5 hover:border-yellow-500/30 transition-all cursor-pointer select-none group/heart" @click.stop="toggle()">
+                            <span class="text-[11px] font-black text-gray-500 group-hover/heart:text-white transition-colors" x-text="count"></span>
+                            <svg class="w-4 h-4 text-yellow-500 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)] transition-transform group-active:scale-125" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                             </svg>
-                        </button>
+                        </div>
                     </div>
                 </div>
             </div>

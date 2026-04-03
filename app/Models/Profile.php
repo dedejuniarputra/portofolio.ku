@@ -8,7 +8,7 @@ class Profile extends Model
 {
     protected $fillable = [
         'name', 'tagline', 'bio', 'long_bio', 'location', 'status',
-        'avatar', 'email', 'github', 'linkedin', 'twitter', 'instagram',
-        'tiktok', 'website', 'resume'
+        'email', 'github', 'linkedin', 'instagram',
+        'tiktok', 'resume'
     ];
 }
