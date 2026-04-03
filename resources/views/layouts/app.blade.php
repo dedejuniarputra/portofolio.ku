@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="id" class="dark scroll-smooth">
 
 <head>
@@ -29,7 +30,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin title="Devicon CDN">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'">
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
@@ -113,31 +114,31 @@
                 <div class="flex items-center justify-center rounded-full mt-6 mb-5 px-3 py-1.5 gap-2 w-[210px] mx-auto"
                     style="background:#161616; border:1px solid #222;">
                     
-                    <a href="https://github.com/dedejuniarputra" target="_blank"
+                    <a href="https://github.com/dedejuniarputra" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile"
                         class="w-9 h-9 rounded-full flex items-center justify-center text-gray-500 hover:text-white hover:bg-[#21262d] hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                         </svg>
                     </a>
 
-                    <a href="{{ $profile->linkedin ?? 'https://www.linkedin.com/in/dedejuniarputraaa/' }}" target="_blank"
+                    <a href="{{ $profile->linkedin ?? 'https://www.linkedin.com/in/dedejuniarputraaa/' }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"
                         class="w-9 h-9 rounded-full flex items-center justify-center text-gray-500 hover:text-[#0077b5] hover:bg-[#0077b510] hover:shadow-[0_0_15px_rgba(0,119,181,0.3)] transition-all">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                         </svg>
                     </a>
 
-                    <a href="{{ $profile->instagram ?? 'https://www.instagram.com/deezxz__?igsh=MWY0Y294YW1pZmF3Yg==' }}" target="_blank"
+                    <a href="{{ $profile->instagram ?? 'https://www.instagram.com/deezxz__?igsh=MWY0Y294YW1pZmF3Yg==' }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile"
                         class="w-9 h-9 rounded-full flex items-center justify-center text-gray-500 hover:text-[#e4405f] hover:bg-[#e4405f10] hover:shadow-[0_0_15px_rgba(228,64,95,0.3)] transition-all">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                         </svg>
                     </a>
 
                     <div class="h-4 w-px bg-white/10 mx-1"></div>
                     
-                    <div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/5 text-primary-dark border border-white/5 cursor-default transition-colors drop-shadow-[0_0_8px_rgba(13,226,130,0.4)]" title="Visitors this month">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                    <div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/5 text-primary-dark border border-white/5 cursor-default transition-colors drop-shadow-[0_0_8px_rgba(13,226,130,0.4)]" title="Visitors this month" aria-label="Monthly visitors">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                         <span class="text-[11px] font-bold">{{ isset($monthlyVisitors) ? number_format($monthlyVisitors) : 0 }}</span>
                     </div>
                 </div>
@@ -229,7 +230,7 @@
 
                 <!-- Sidebar Footer: Refined Copyright (Aligned Width) -->
                 <div class="mt-8 pb-4 text-center">
-                    <p class="text-[11px] font-black uppercase tracking-widest text-gray-500 cursor-default whitespace-nowrap">
+                    <p class="text-[11px] font-black uppercase tracking-widest text-gray-400 cursor-default whitespace-nowrap">
                         @ 2026 / dede juniar putra 🤩
                     </p>
                 </div>
@@ -277,8 +278,8 @@
 
                 <div class="flex items-center gap-2">
                     <!-- Mobile Visitor Counter -->
-                    <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-[#161616] tracking-widest text-primary-dark border border-white/5 cursor-default transition-all drop-shadow-[0_0_8px_rgba(13,226,130,0.4)]" title="Visitors this month">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                    <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-[#161616] tracking-widest text-primary-dark border border-white/5 cursor-default transition-all drop-shadow-[0_0_8px_rgba(13,226,130,0.4)]" title="Visitors this month" aria-label="Monthly visitors">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                         <span class="text-[10px] font-bold">{{ isset($monthlyVisitors) ? number_format($monthlyVisitors) : 0 }}</span>
                     </div>
 
@@ -301,7 +302,7 @@
 
                 <!-- Mobile Only Footer: Copyright Note -->
                 <footer class="md:hidden mt-20 pb-8 text-center border-t border-white/5 pt-10 px-4">
-                    <p class="text-[11px] font-black uppercase tracking-widest text-gray-500 cursor-default whitespace-nowrap">
+                    <p class="text-[11px] font-black uppercase tracking-widest text-gray-400 cursor-default whitespace-nowrap">
                         @ 2026 / dede juniar putra 🤩
                     </p>
                 </footer>
@@ -311,38 +312,38 @@
         <!-- Mobile Bottom Navigation -->
         <nav
             class="md:hidden fixed bottom-6 left-6 right-6 h-16 bg-[#161616]/80 backdrop-blur-xl border border-white/5 rounded-2xl flex items-center justify-around px-4 z-50 shadow-2xl">
-            <a href="{{ route('home') }}"
+            <a href="{{ route('home') }}" aria-label="Navigate to Home"
                 class="flex flex-col items-center gap-1 {{ request()->routeIs('home') ? 'text-primary-dark nav-active-glow' : 'text-neutral-500' }}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                     <polyline points="9 22 9 12 15 12 15 22" />
                 </svg>
                 <span class="text-[10px] font-bold uppercase tracking-tighter">Home</span>
             </a>
-            <a href="{{ route('about') }}"
+            <a href="{{ route('about') }}" aria-label="Navigate to About"
                 class="flex flex-col items-center gap-1 {{ request()->routeIs('about') ? 'text-primary-dark nav-active-glow' : 'text-neutral-500' }}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                     <circle cx="12" cy="7" r="4" />
                 </svg>
                 <span class="text-[10px] font-bold uppercase tracking-tighter">About</span>
             </a>
-            <a href="{{ route('achievements') }}"
+            <a href="{{ route('achievements') }}" aria-label="Navigate to Achievements"
                 class="flex flex-col items-center gap-1 {{ request()->routeIs('achievements') ? 'text-primary-dark nav-active-glow' : 'text-neutral-500' }}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path
                         d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.75z" />
                     <path d="m9 12 2 2 4-4" />
                 </svg>
                 <span class="text-[10px] font-bold uppercase tracking-tighter">Achievements</span>
             </a>
-            <a href="{{ route('projects') }}"
+            <a href="{{ route('projects') }}" aria-label="Navigate to Projects"
                 class="flex flex-col items-center gap-1 {{ request()->routeIs('projects') ? 'text-primary-dark nav-active-glow' : 'text-neutral-500' }}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path
                         d="m12.83 2.18a2 2 0 0 0-1.66 0L2.1 6.27a2 2 0 0 0 0 3.66l9.07 4.09a2 2 0 0 0 1.66 0l9.07-4.09a2 2 0 0 0 0-3.66z" />
                     <path d="m2.1 14.74 9.07 4.09a2 2 0 0 0 1.66 0l9.07-4.09" />
@@ -350,10 +351,10 @@
                 </svg>
                 <span class="text-[10px] font-bold uppercase tracking-tighter">Projects</span>
             </a>
-            <a href="{{ route('contact') }}"
+            <a href="{{ route('contact') }}" aria-label="Navigate to Contact"
                 class="flex flex-col items-center gap-1 {{ request()->routeIs('contact') ? 'text-primary-dark nav-active-glow' : 'text-neutral-500' }}">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <rect width="20" height="16" x="2" y="4" rx="2" />
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>

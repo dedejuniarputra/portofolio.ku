@@ -200,6 +200,7 @@
                 <div class="flex flex-wrap items-center gap-1.5 sm:gap-2.5 mb-8">
                     <!-- All Filter -->
                     <button @click="activeFilter = 'all'; showAll = false"
+                        aria-label="Filter all skills"
                         :class="activeFilter === 'all' ? 'bg-[#facc15] text-black border-[#facc15]' : 'bg-[#1a1a1a] text-gray-400 border-border hover:border-[#444]'"
                         class="flex items-center gap-1.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-[13px] font-bold border transition-all cursor-pointer whitespace-nowrap">
                         All
@@ -215,6 +216,7 @@
                         @endphp
                         @if($catCount > 0)
                             <button @click="activeFilter = '{{ $cat->slug }}'; showAll = false"
+                                aria-label="Filter skills by {{ $cat->name }}"
                                 :class="activeFilter === '{{ $cat->slug }}' ? 'bg-[#facc15] text-black border-[#facc15]' : 'bg-[#1a1a1a] text-gray-400 border-border hover:border-[#444]'"
                                 class="flex items-center gap-1.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-[13px] font-bold border transition-all cursor-pointer whitespace-nowrap">
                                 {{ $cat->name }}
@@ -250,7 +252,7 @@
 
                 <!-- Load More / Show Less Button -->
                 <div x-show="activeFilter === 'all' && {{ count($skills) }} > limit" class="mt-8 flex justify-center">
-                    <button @click="showAll = !showAll" 
+                    <button @click="showAll = !showAll" aria-label="Toggle skills visibility"
                             class="relative px-6 py-2 rounded-full border border-white/5 bg-[#1a1a1a] text-gray-400 text-xs font-bold hover:bg-[#222] hover:text-white hover:border-primary-dark/50 transition-all duration-300 flex items-center gap-2 hover:shadow-[0_0_20px_rgba(13,226,130,0.2)] group">
                         <span x-text="showAll ? 'Show Less' : 'Load More'" class="relative z-10"></span>
                         <svg class="relative z-10 w-3.5 h-3.5 transition-transform duration-300" :class="showAll ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
@@ -270,28 +272,28 @@
                     </svg>
                     GitHub Activity
                 </div>
-                <a href="https://github.com/dedejuniarputra" target="_blank"
-                   class="text-sm font-bold text-gray-500 hover:text-white transition-colors">@dedejuniarputra</a>
+                <a href="https://github.com/dedejuniarputra" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub Profile"
+                   class="text-sm font-bold text-gray-400 hover:text-white transition-colors">@dedejuniarputra</a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 <!-- Followers -->
                 <div class="bg-[#0d1117] border border-[#30363d] rounded-2xl p-6 text-center hover:border-[#facc15]/30 transition-all group">
-                    <div class="text-[12px] font-bold text-gray-500 uppercase tracking-widest mb-1 group-hover:text-gray-400 transition-colors">Followers</div>
+                    <div class="text-[12px] font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover:text-gray-300 transition-colors">Followers</div>
                     <div class="text-3xl font-black text-[#facc15]">
                         {{ number_format($github['followers'] ?? 0) }}
                     </div>
                 </div>
                 <!-- Following -->
                 <div class="bg-[#0d1117] border border-[#30363d] rounded-2xl p-6 text-center hover:border-[#facc15]/30 transition-all group">
-                    <div class="text-[12px] font-bold text-gray-500 uppercase tracking-widest mb-1 group-hover:text-gray-400 transition-colors">Following</div>
+                    <div class="text-[12px] font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover:text-gray-300 transition-colors">Following</div>
                     <div class="text-3xl font-black text-[#facc15]">
                         {{ number_format($github['following'] ?? 0) }}
                     </div>
                 </div>
                 <!-- Repos -->
                 <div class="bg-[#0d1117] border border-[#30363d] rounded-2xl p-6 text-center hover:border-[#facc15]/30 transition-all group">
-                    <div class="text-[12px] font-bold text-gray-500 uppercase tracking-widest mb-1 group-hover:text-gray-400 transition-colors">Repositories</div>
+                    <div class="text-[12px] font-bold text-gray-400 uppercase tracking-widest mb-1 group-hover:text-gray-300 transition-colors">Repositories</div>
                     <div class="text-3xl font-black text-[#facc15]">
                         {{ number_format($github['public_repos'] ?? 0) }}
                     </div>
@@ -306,7 +308,7 @@
                          class="w-full opacity-90 hover:opacity-100 transition-opacity min-h-[120px] sm:min-h-[140px] object-contain"
                          loading="lazy" decoding="async">
                 </div>
-                <div class="flex items-center justify-end gap-2 mt-2 text-[10px] text-gray-500">
+                <div class="flex items-center justify-end gap-2 mt-2 text-[10px] text-gray-400">
                     <span>Less</span>
                     <div class="flex gap-1">
                         <div class="w-2.5 h-2.5 rounded-sm bg-[#161b22]"></div>
